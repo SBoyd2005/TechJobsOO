@@ -42,14 +42,9 @@ namespace TechJobs.Controllers
 
             if (ModelState.IsValid)
             {
-                return View(newJobViewModel);
-            }
-
-            else
-            {
                 JobData data = JobData.GetInstance();
                 Job newJob = new Job();
-             
+
                 newJob.Name = newJobViewModel.Name;
                 newJob.Employer = jobData.Employers.Find(newJobViewModel.EmployerID);
                 newJob.Location = jobData.Locations.Find(newJobViewModel.LocationID);
@@ -58,7 +53,12 @@ namespace TechJobs.Controllers
 
 
                 JobData.Jobs.Add(newJob);
-                return Redirect(string.Format("/Job?id={0}",  + newJob.ID));
+                return Redirect(string.Format("/Job?id={0}", +newJob.ID));
+            }
+
+            else
+            {
+                return View(newJobViewModel);
             }
         }
     }
